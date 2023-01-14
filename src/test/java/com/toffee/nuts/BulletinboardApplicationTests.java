@@ -1,4 +1,4 @@
-package com.toffee.nuts.bulletinboard;
+package com.toffee.nuts;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
