@@ -2,6 +2,7 @@ package com.toffee.nuts.bulletinboard.controller;
 
 
 import com.toffee.nuts.bulletinboard.entity.BoardEntity;
+import com.toffee.nuts.bulletinboard.service.BoardFindService;
 import com.toffee.nuts.bulletinboard.util.ApiResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
