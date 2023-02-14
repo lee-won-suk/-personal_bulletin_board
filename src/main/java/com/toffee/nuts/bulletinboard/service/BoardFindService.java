@@ -5,7 +5,6 @@ import com.toffee.nuts.bulletinboard.entity.BoardEntity;
 import com.toffee.nuts.bulletinboard.repository.BoardRepository;
 import com.toffee.nuts.bulletinboard.util.BoardCategory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +31,8 @@ public class BoardFindService {
     }
 
     @Transactional(readOnly = true)
-    public List<BoardEntity> findByCategory(BoardCategory boardCategory) {
-        return boardRepository.findByCategory(boardCategory);
+    public List<BoardEntity> findByCategory(BoardCategory category) {
+        return boardRepository.findByCategory(category);
     }
 
 

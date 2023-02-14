@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
 
 @Entity
 @Getter
@@ -31,9 +30,9 @@ public class BoardEntity {
     private Long writer;
 
     @Convert(converter = BoardEntityConverter.class)
-    private BoardCategory boardCategory;
+    private BoardCategory category;
 
-    @Column(name = "user_id")
+   /* @Column(name = "user_id")
     private User user;
-
+*/
 }
