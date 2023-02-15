@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/boards")
 @RequiredArgsConstructor
-public class BoardFindApi {
+public class BoardWriteApi {
 
     private final BoardFindService boardFindService;
 

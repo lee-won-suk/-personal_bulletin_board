@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -35,8 +36,14 @@ public class BoardFindService {
         return boardRepository.findByCategory(category);
     }
 
+  /*  @Transactional(readOnly = true)
+    public BoardEntity findByUser(@PathVariable Long userId) {
+        BoardEntity boardEntity = boardRepository.findById(userId)
+                .orElseThrow(() -> new ExpressionException(String.format("boardEntity is not found")));
 
-
+        return boardEntity;
+    }
+*/
 
 
 
