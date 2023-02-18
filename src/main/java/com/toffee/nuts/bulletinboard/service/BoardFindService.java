@@ -1,14 +1,13 @@
 package com.toffee.nuts.bulletinboard.service;
 
 
-import com.toffee.nuts.bulletinboard.entity.BoardEntity;
+import com.toffee.nuts.bulletinboard.entity.Board;
 import com.toffee.nuts.bulletinboard.repository.BoardRepository;
 import com.toffee.nuts.bulletinboard.util.BoardCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -19,20 +18,20 @@ public class BoardFindService {
     private final BoardRepository boardRepository;
 
     @Transactional(readOnly = true)
-    public BoardEntity findById(Long boardId) {
-        BoardEntity boardEntity = boardRepository.findById(boardId)
+    public Board findById(Long boardId) {
+        Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new ExpressionException(String.format("boardEntity is not found")));
 
-        return boardEntity;
+        return board;
     }
 
     @Transactional(readOnly = true)
-    public List<BoardEntity> findAll() {
+    public List<Board> findAll() {
         return boardRepository.findAll();
     }
 
     @Transactional(readOnly = true)
-    public List<BoardEntity> findByCategory(BoardCategory category) {
+    public List<Board> findByCategory(BoardCategory category) {
         return boardRepository.findByCategory(category);
     }
 

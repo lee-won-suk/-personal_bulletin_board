@@ -1,7 +1,7 @@
 package com.toffee.nuts.bulletinboard.controller;
 
 
-import com.toffee.nuts.bulletinboard.entity.BoardEntity;
+import com.toffee.nuts.bulletinboard.entity.Board;
 import com.toffee.nuts.bulletinboard.service.BoardFindService;
 import com.toffee.nuts.bulletinboard.util.ApiResult;
 import com.toffee.nuts.bulletinboard.util.BoardCategory;
@@ -23,7 +23,7 @@ public class BoardFindApi {
     private final BoardFindService boardFindService;
 
     @GetMapping()
-    public ApiResult<List<BoardEntity>> findAll() {
+    public ApiResult<List<Board>> findAll() {
         try {
             return ApiResult.succeed(boardFindService.findAll());
         } catch (Exception e) {
@@ -33,7 +33,7 @@ public class BoardFindApi {
     }
 
     @GetMapping("/{boardId}")
-    public ApiResult<BoardEntity> findById(@PathVariable Long boardId) {
+    public ApiResult<Board> findById(@PathVariable Long boardId) {
         try {
             return ApiResult.succeed(boardFindService.findById(boardId));
         } catch (Exception e) {
@@ -45,7 +45,7 @@ public class BoardFindApi {
 
 
     @GetMapping("/category/{category}")
-    public ApiResult<List<BoardEntity>> findByCategory(@PathVariable BoardCategory category) {
+    public ApiResult<List<Board>> findByCategory(@PathVariable BoardCategory category) {
         try {
             return ApiResult.succeed(boardFindService.findByCategory(category));
         } catch (Exception e) {
