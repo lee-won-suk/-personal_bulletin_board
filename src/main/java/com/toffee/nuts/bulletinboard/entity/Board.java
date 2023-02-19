@@ -47,4 +47,11 @@ public class Board {
     public void createByUser(User user) {
         this.user = user;
     }
+
+    public Long update(String title, String content, BoardCategory category) {
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        return this.getBoard_id();
+    }
 }
