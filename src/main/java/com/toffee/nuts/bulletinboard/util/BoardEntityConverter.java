@@ -5,8 +5,8 @@ import jakarta.persistence.AttributeConverter;
 public class BoardEntityConverter implements AttributeConverter<BoardCategory, String> {
 
     @Override
-    public String convertToDatabaseColumn(BoardCategory attribute) {
-        return attribute.getCode();
+    public String convertToDatabaseColumn(BoardCategory category) {
+        return category.getCode();
     }
 
     @Override
