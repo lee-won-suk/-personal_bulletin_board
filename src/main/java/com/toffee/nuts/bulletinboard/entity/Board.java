@@ -33,7 +33,7 @@ public class Board {
 
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Builder
