@@ -2,10 +2,11 @@ package com.toffee.nuts.bulletinboard.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -17,7 +18,8 @@ import org.springframework.security.web.SecurityFilterChain;
 * */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+//@EnableMethodSecurity
+public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -26,24 +28,25 @@ public class SecurityConfig {
         http.headers().frameOptions().disable();// h2 콘솔 사용하기위해서 clickjaccking공격을 막는 건 disable.
 
         return http.authorizeHttpRequests()
-                .requestMatchers("/user/**").authenticated()
+                //.requestMatchers("/","/login").permitAll()
+                .requestMatchers("/member/**").authenticated()
                 .requestMatchers("/manager/**").hasAnyRole("MANAGER","ADMIN") //매니저, 관리자 사용가능
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/h2-console/**","/home","/").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .usernameParameter("name")
-                .passwordParameter("password")
+                .defaultSuccessUrl("/", true)
+                //.successHandler(new LoginSuccessHandler("/"))
+                .failureUrl("/fail")
                 .loginPage("/login")
                 .loginProcessingUrl("/loginProc")
-                .defaultSuccessUrl("/")
                 .and().build();
 
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

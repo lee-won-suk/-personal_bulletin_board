@@ -1,10 +1,12 @@
+/*
 package com.toffee.nuts.bulletinboard.entity;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-
+@Data
 public class MemberDetails implements UserDetails {
 
 
@@ -21,12 +23,12 @@ public class MemberDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getName();
+        return user.getUsername();
     }
 
     @Override
@@ -49,3 +51,4 @@ public class MemberDetails implements UserDetails {
         return false;
     }
 }
+*/

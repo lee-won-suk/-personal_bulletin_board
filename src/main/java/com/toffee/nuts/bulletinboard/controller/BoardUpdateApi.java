@@ -20,10 +20,10 @@ public class BoardUpdateApi {
 
 
 
-    @PostMapping("/{userid}/{boardId}")
-    public ApiResult<Long> updateBoard(@PathVariable Long userId, @PathVariable Long boardId, @RequestBody BoardUpdateRequest boardUpdateRequest) {
+    @PostMapping("/{id}/{boardId}")
+    public ApiResult<Long> updateBoard(@PathVariable Long id, @PathVariable Long boardId, @RequestBody BoardUpdateRequest boardUpdateRequest) {
         try {
-            return ApiResult.succeed(boardUpdateService.updateBoard(userId, boardId, boardUpdateRequest));
+            return ApiResult.succeed(boardUpdateService.updateBoard(id, boardId, boardUpdateRequest));
         } catch (Exception e) {
             log.error(e.getMessage());
             return ApiResult.failed(e.getMessage());

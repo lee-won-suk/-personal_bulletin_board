@@ -33,8 +33,8 @@ public class Board {
 
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "id")
+    private Member member;
 
     @Builder
     public Board(String title, String writer, String content, BoardCategory category) {
@@ -44,8 +44,8 @@ public class Board {
         this.category = category;
     }
 
-    public void createByUser(User user) {
-        this.user = user;
+    public void createByUser(Member member) {
+        this.member = member;
     }
 
     public Long update(String title, String content, BoardCategory category) {

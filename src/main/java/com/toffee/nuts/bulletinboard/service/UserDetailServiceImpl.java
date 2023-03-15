@@ -1,8 +1,9 @@
 package com.toffee.nuts.bulletinboard.service;
 
-import com.toffee.nuts.bulletinboard.entity.MemberDetails;
-import com.toffee.nuts.bulletinboard.entity.User;
-import com.toffee.nuts.bulletinboard.repository.UserRepository;
+import com.toffee.nuts.bulletinboard.entity.Member;
+//import com.toffee.nuts.bulletinboard.entity.MemberDetails;
+import com.toffee.nuts.bulletinboard.entity.SecurityUser;
+import com.toffee.nuts.bulletinboard.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,18 +25,19 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
 
     @Autowired
-    UserRepository userRepository;
+    MemberRepository memberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.findByName(name).orElseThrow(() -> {
-            log.info("존재하지 않는 name 입니다.");
-            return new UsernameNotFoundException("존재하지 않는 name 입니다.");
-        });
+        Optional<Member>  member = memberRepository.findByUsername(username);
+
+        if (!member.isPresent()) throw new UsernameNotFoundException("존재하지 않는 username 입니다.");
+
+        log.info("loadUserByUsername member.username = {}", username);
+
+        return new SecurityUser(member.get());
 
 
-
-        return new MemberDetails(user);
     }
 }

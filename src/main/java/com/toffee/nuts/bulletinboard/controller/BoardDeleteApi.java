@@ -19,8 +19,8 @@ public class BoardDeleteApi {
 
 
 
-    @PostMapping("/{userid}/{boardId}")
-    public void updateBoard(@PathVariable Long userId, @PathVariable Long boardId) {
-       boardDeleteService.deleteBoardById(userId, boardId);
+    @PostMapping("/{id}/{boardId}")
+    public void updateBoard(@PathVariable Long id, @PathVariable Long boardId) {
+       boardDeleteService.deleteBoardById(id, boardId);
     }
 }

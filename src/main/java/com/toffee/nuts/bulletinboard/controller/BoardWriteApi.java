@@ -17,9 +17,9 @@ public class BoardWriteApi {
     private final BoardWriteService boardWriteService;
 
     @PostMapping("/{userid}/write")
-    public ApiResult<Long> writeBoard(@PathVariable Long userId, @RequestBody BoardWriteRequest boardWriteRequest) {
+    public ApiResult<Long> writeBoard(@PathVariable Long id, @RequestBody BoardWriteRequest boardWriteRequest) {
         try {
-            Long boardId = boardWriteService.writeBoard(userId, boardWriteRequest);
+            Long boardId = boardWriteService.writeBoard(id, boardWriteRequest);
             return ApiResult.succeed(boardId);
         } catch (Exception e) {
             log.error(e.getMessage());
