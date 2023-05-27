@@ -2,7 +2,6 @@ package com.toffee.nuts.bulletinboard.service;
 
 import com.toffee.nuts.bulletinboard.entity.Member;
 //import com.toffee.nuts.bulletinboard.entity.MemberDetails;
-import com.toffee.nuts.bulletinboard.entity.SecurityUser;
 import com.toffee.nuts.bulletinboard.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class UserDetailServiceImpl implements UserDetailsService {
+public class JpaUserDetailService implements UserDetailsService {
 
 
     @Autowired
@@ -30,13 +29,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<Member>  member = memberRepository.findByUsername(username);
+        Member member = memberRepository.findByUsername(username);
 
-        if (!member.isPresent()) throw new UsernameNotFoundException("존재하지 않는 username 입니다.");
 
         log.info("loadUserByUsername member.username = {}", username);
 
-        return new SecurityUser(member.get());
+        return new CustomUserDetails(member);
 
 
     }

@@ -37,13 +37,17 @@ public class HelloController {
         return "join";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/loginPage")
     public String login(Model model) {
         // 이전페이지 URL 추출
        // String referrer = request.getHeader("Referer");
        // request.getSession().setAttribute("prevPage", referrer);
         return "login";
     }
+
+   /* @PostMapping("/login")
+    public
+*/
 
     @PostMapping("/joinProc")
     public String joinProc(Member member) {
