@@ -1,5 +1,6 @@
 package com.toffee.nuts.bulletinboard.util;
 
+import com.toffee.nuts.bulletinboard.entity.Authority;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -53,7 +54,7 @@ public class JwtTokenProvider {
 
 
     //토큰 생성
-    public String createToken(String account, List<String> roles) {
+    public String createToken(String account, List<Authority> roles) {
         Claims claims = Jwts.claims().setSubject(account); // Jwt payload에 저장되는 정보단위
         claims.put("roles",roles); // 정보는 key / value 쌍으로 저장된다.
         Date now = new Date();

@@ -24,8 +24,11 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.io.IOException;
+import java.util.List;
 
 
 /*
@@ -73,20 +76,37 @@ public class SecurityConfiguration {
         http.headers().frameOptions().disable();// h2 콘솔 사용하기위해서 clickjaccking공격을 막는 건 disable.
 
         return http.authorizeHttpRequests()
+                .requestMatchers("/register","/login").permitAll()
                 .requestMatchers("/member/**").authenticated()
                 .requestMatchers("/manager/**").hasAnyRole("MANAGER","ADMIN") //매니저, 관리자 사용가능
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/h2-console/**","/home","/").permitAll()
+                .requestMatchers("/user/**").hasRole("USER")
+                .requestMatchers("/h2-console","/home","/").permitAll()
                 .anyRequest().permitAll()
                 .and()
+                .cors(c -> {
+                    CorsConfigurationSource source = request -> {
+                        // Cors 허용 패턴
+                        CorsConfiguration config = new CorsConfiguration();
+                        config.setAllowedOrigins(
+                                List.of("*")
+                        );
+                        config.setAllowedMethods(
+                                List.of("*")
+                        );
+                        return config;
+                        };
+                    c.configurationSource(source);
+                    }
+                )
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .formLogin()
-                .defaultSuccessUrl("/", true)
+                //.and()
+                //.formLogin()
+                //.defaultSuccessUrl("/", true)
                 //.successHandler(new LoginSuccessHandler("/"))
-                .failureUrl("/fail")
-                .loginPage("/login")
-                .loginProcessingUrl("/loginProc")
+                //.failureUrl("/fail")
+       /*         .loginPage("/login")
+                .loginProcessingUrl("/loginProc")*/
                 .and().addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .accessDeniedHandler(new AccessDeniedHandler() {//권한문제발생시 에러 핸들링

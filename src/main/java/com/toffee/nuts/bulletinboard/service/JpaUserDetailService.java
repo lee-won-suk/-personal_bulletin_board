@@ -3,6 +3,7 @@ package com.toffee.nuts.bulletinboard.service;
 import com.toffee.nuts.bulletinboard.entity.Member;
 //import com.toffee.nuts.bulletinboard.entity.MemberDetails;
 import com.toffee.nuts.bulletinboard.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class JpaUserDetailService implements UserDetailsService {
 
 
@@ -27,12 +29,14 @@ public class JpaUserDetailService implements UserDetailsService {
     MemberRepository memberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String account) throws UsernameNotFoundException {
 
-        Member member = memberRepository.findByUsername(username);
+        Member member = memberRepository.findByAccount(account).orElseThrow(() ->
+                        new UsernameNotFoundException("Invalid authentication!")
+                );
 
 
-        log.info("loadUserByUsername member.username = {}", username);
+        log.info("loadUserByUsername member.username = {}", account);
 
         return new CustomUserDetails(member);
 
